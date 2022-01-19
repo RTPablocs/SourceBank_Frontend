@@ -1,8 +1,27 @@
 import Input from "./FormFields/Input";
 import InputIcon from "./FormFields/InputIcon";
-import PasswordField from "./FormFields/PasswordField";
+import {useForm, Controller} from "react-hook-form";
+
+interface FormDataTypes {
+    username: string,
+    firstname: string
+    lastname: string
+    email: string,
+    phone: string
+    city: string,
+    country: string,
+    password: string
+}
+
+
 
 const RegisterLayout: React.FC = () => {
+    const {register, handleSubmit} = useForm<FormDataTypes>()
+    const onSubmit = handleSubmit((data) =>{
+        console.log(data)
+    })
+
+
     return (
         <div className="flex justify-center items-center h-screen">
             <div
@@ -17,26 +36,25 @@ const RegisterLayout: React.FC = () => {
                 </a>
                 </span>
                 <div className="p-6 mt-8">
-                    <form action="#">
+                    <form onSubmit={onSubmit}>
                         <div className="flex flex-col mb-2">
-                            <InputIcon icon='User' placeholder='Username' type='text'/>
+                            <Controller name='username' render={({field}) => <InputIcon icon='User' placeholder='Username' type='text' {...field}/>}/>
+
                         </div>
                         <div className="flex gap-4 mb-2">
-                            <Input placeholder='First name' type='text'/>
-                            <Input placeholder='Last Name' type='text'/>
+
                         </div>
                         <div className="flex flex-col mb-2">
-                            <InputIcon icon='Mail' placeholder='Email' type='email'/>
+                            <InputIcon icon='Mail' placeholder='Email' type='email' name='email' />
                         </div>
                         <div className="flex flex-col mb-2">
-                            <InputIcon icon='Phone' placeholder='Phone Number' type='text'/>
+                            <InputIcon icon='Phone' placeholder='Phone Number' type='text' name='phone'/>
                         </div>
                         <div className='flex gap-4 mb-2'>
-                            <Input placeholder='City' type='text'/>
-                            <Input placeholder='Country' type='text'/>
+
                         </div>
                         <div className='flex flex-col mb-2'>
-                            <PasswordField/>
+                            <InputIcon icon='Key' placeholder='Password' type='password' name="password"/>
                         </div>
                         <div className="flex w-full my-4">
                             <button type="submit"
