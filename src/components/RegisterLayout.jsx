@@ -3,26 +3,11 @@ import InputIcon from "./FormFields/InputIcon";
 import {useForm, Controller} from "react-hook-form";
 import {Link} from "react-router-dom"
 
-
-interface FormDataTypes {
-    username: string,
-    firstname: string
-    lastname: string
-    email: string,
-    phone: string
-    city: string,
-    country: string,
-    password: string
-}
-
-
-const RegisterLayout: React.FC = () => {
-    const {handleSubmit, control, reset} = useForm<FormDataTypes>()
+export default function RegisterLayout() {
+    const {handleSubmit, control, reset} = useForm()
     const onSubmit = handleSubmit((data) => {
         console.log(data)
     })
-
-
     return (
         <div className="flex justify-center items-center h-screen">
             <div
@@ -45,8 +30,10 @@ const RegisterLayout: React.FC = () => {
 
                         </div>
                         <div className="flex gap-4 mb-2">
-                            <Input placeholder='First Name' type='text'/>
-                            <Input placeholder='Last Name' type='text'/>
+                            <Controller control={control} defaultValue="" name='firstname' render={({field}) =>
+                                <Input placeholder='First Name' type='text' {...field}/>}/>
+                            <Controller control={control} defaultValue="" name="lastname"
+                                        render={({field}) => <Input placeholder='Last Name' type='text'{...field}/>}/>
                         </div>
                         <div className="flex flex-col mb-2">
                             <Controller control={control} defaultValue="" name='email'
@@ -82,5 +69,3 @@ const RegisterLayout: React.FC = () => {
 
     )
 }
-
-export default RegisterLayout

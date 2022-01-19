@@ -1,13 +1,7 @@
 import Icon from "../Icon";
 
 
-interface Props {
-    icon: string
-    placeholder: string,
-    type: string,
-}
-
-const InputIcon: React.FC<Props> = ({icon, placeholder, type, ...rest}) => {
+export default function InputIcon({icon, placeholder, type, ...rest}) {
     return (
 
         <div className="flex relative ">
@@ -23,4 +17,3 @@ const InputIcon: React.FC<Props> = ({icon, placeholder, type, ...rest}) => {
     )
 }
 
-export default InputIcon

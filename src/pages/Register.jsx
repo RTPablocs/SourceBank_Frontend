@@ -1,7 +1,7 @@
 import {IonContent, IonPage} from "@ionic/react";
 import RegisterLayout from "../components/RegisterLayout";
 
-const Register: React.FC = () => {
+export default function Register() {
     return (
         <IonPage>
             <IonContent fullscreen>
@@ -10,5 +10,3 @@ const Register: React.FC = () => {
         </IonPage>
     )
 }
-
-export default Register
