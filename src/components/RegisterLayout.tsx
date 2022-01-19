@@ -14,10 +14,9 @@ interface FormDataTypes {
 }
 
 
-
 const RegisterLayout: React.FC = () => {
-    const {register, handleSubmit} = useForm<FormDataTypes>()
-    const onSubmit = handleSubmit((data) =>{
+    const {handleSubmit, control, reset} = useForm<FormDataTypes>()
+    const onSubmit = handleSubmit((data) => {
         console.log(data)
     })
 
@@ -38,23 +37,34 @@ const RegisterLayout: React.FC = () => {
                 <div className="p-6 mt-8">
                     <form onSubmit={onSubmit}>
                         <div className="flex flex-col mb-2">
-                            <Controller name='username' render={({field}) => <InputIcon icon='User' placeholder='Username' type='text' {...field}/>}/>
+                            <Controller control={control} defaultValue="" name='username'
+                                        render={({field}) => <InputIcon icon='User' placeholder='Username'
+                                                                        type='text' {...field}/>}/>
 
                         </div>
                         <div className="flex gap-4 mb-2">
+                            <Input placeholder='First Name' type='text'/>
+                            <Input placeholder='Last Name' type='text'/>
+                        </div>
+                        <div className="flex flex-col mb-2">
+                            <Controller control={control} defaultValue="" name='email'
+                                        render={({field}) => <InputIcon icon='Mail' placeholder='Email'
+                                                                        type='email' {...field}/>}/>
 
                         </div>
                         <div className="flex flex-col mb-2">
-                            <InputIcon icon='Mail' placeholder='Email' type='email' name='email' />
-                        </div>
-                        <div className="flex flex-col mb-2">
-                            <InputIcon icon='Phone' placeholder='Phone Number' type='text' name='phone'/>
+                            <Controller control={control} defaultValue="" name='phone'
+                                        render={({field}) => <InputIcon icon='Phone' placeholder='Phone Number'
+                                                                        type='text' {...field}/>}/>
                         </div>
                         <div className='flex gap-4 mb-2'>
-
+                            <Input placeholder='City' type='text'/>
+                            <Input placeholder='Country' type='text'/>
                         </div>
                         <div className='flex flex-col mb-2'>
-                            <InputIcon icon='Key' placeholder='Password' type='password' name="password"/>
+                            <Controller control={control} defaultValue="" name='password'
+                                        render={({field}) => <InputIcon icon='Key' placeholder='Password'
+                                                                        type='text' {...field}/>}/>
                         </div>
                         <div className="flex w-full my-4">
                             <button type="submit"
