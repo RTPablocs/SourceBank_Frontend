@@ -19,6 +19,8 @@ export default function RegisterLayout() {
         await axios.post('http://localhost:8000/user/register/', data)
         history.push('/login')
 
+    }, async () => {
+        await present('Cannot complete registration, fields missing or incorrect', 1500)
     })
     return (<div className="flex justify-center items-center h-screen">
             <div
