@@ -21,6 +21,8 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "autoprefixer": "^10.4.2",
+    "axios": "^0.25.0",
+    "capacitor-native-biometric": "^3.0.3",
     "ionicons": "^5.4.0",
     "lucide-react": "^0.16.26",
     "postcss": "^8.4.5",

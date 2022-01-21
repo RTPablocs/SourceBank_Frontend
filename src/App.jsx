@@ -22,6 +22,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import './theme/tailwind.css'
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 setupIonicReact();
 
@@ -35,6 +36,9 @@ export default function App() {
                     </Route>
                     <Route exact path="/register">
                         <Register/>
+                    </Route>
+                    <Route exact path="/login">
+                        <Login/>
                     </Route>
                 </IonRouterOutlet>
             </IonReactRouter>
