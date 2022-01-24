@@ -23,6 +23,7 @@ import './theme/variables.css';
 import './theme/tailwind.css'
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 
 setupIonicReact();
 
@@ -39,6 +40,9 @@ export default function App() {
                     </Route>
                     <Route exact path="/login">
                         <Login/>
+                    </Route>
+                    <Route exact path='/dashboard'>
+                        <Dashboard/>
                     </Route>
                 </IonRouterOutlet>
             </IonReactRouter>

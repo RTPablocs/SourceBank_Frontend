@@ -1,16 +1,19 @@
 import {Link} from "react-router-dom";
 import {Controller, useForm} from "react-hook-form";
 import InputIcon from "./FormFields/InputIcon";
-import axios from "axios";
-
+import useUser from "../hooks/useUser"
+import {useIonToast} from "@ionic/react";
 
 
 export default function LoginLayout() {
+    const {login} = useUser()
+    const [present] = useIonToast()
 
     const {handleSubmit, control} = useForm()
     const onSubmit = handleSubmit(async (data) => {
-        console.log(data)
-        await axios.post('http://localhost:8000/user/login/', data)
+        await login(data)
+    }, (data) => {
+        present('Invalid data, please check the form', 1500)
     })
     return (
         <div className="flex justify-center items-center h-screen">
@@ -27,15 +30,15 @@ export default function LoginLayout() {
                 </Link>
                 </span>
                 <div className="p-6 mt-8">
-                    <form>
+                    <form onSubmit={onSubmit}>
                         <div className="flex flex-col mb-2">
-                            <Controller control={control} defaultValue="" name='email'
-                                        render={({field}) => <InputIcon icon='Mail' placeholder='Email'
-                                                                        type='email' {...field}/>}/>
+                            <Controller control={control} rules={{required: true}} name='username'
+                                        render={({field}) => <InputIcon icon='User' placeholder='Username'
+                                                                        type='text' {...field}/>}/>
 
                         </div>
                         <div className='flex flex-col mb-2'>
-                            <Controller control={control} defaultValue="" name='password'
+                            <Controller control={control} rules={{required: true}} name='password'
                                         render={({field}) => <InputIcon icon='Key' placeholder='Password'
                                                                         type='password' {...field}/>}/>
                         </div>
