@@ -2,23 +2,17 @@ import Input from "./FormFields/Input";
 import InputIcon from "./FormFields/InputIcon";
 import {useForm, Controller} from "react-hook-form";
 import {Link} from "react-router-dom"
-import axios from "axios"
 import {useIonToast} from "@ionic/react";
-import {useHistory} from "react-router-dom";
+import useUser from "../hooks/useUser";
 
 export default function RegisterLayout() {
-
+    const {register} = useUser()
     const [present] = useIonToast()
-    const history = useHistory()
 
 
     const {handleSubmit, control} = useForm()
     const onSubmit = handleSubmit(async (data) => {
-        await present('Register Complete', 1500)
-        console.log(data)
-        await axios.post('http://localhost:8000/user/register/', data)
-        history.push('/login')
-
+        await register(data)
     }, async () => {
         await present('Cannot complete registration, fields missing or incorrect', 1500)
     })
