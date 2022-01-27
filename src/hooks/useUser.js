@@ -7,7 +7,7 @@ import Context from "../context/UserContext";
 export default function useUser() {
     const history = useHistory()
     const [present] = useIonToast()
-    const {user, setUser} = useContext(Context)
+    const {user} = useContext(Context)
 
 
     const login = useCallback(async (data) => {
@@ -16,19 +16,11 @@ export default function useUser() {
                 await present('Welcome Back!', 1500)
                 history.push('/dashboard')
                 localStorage.setItem('auth', response.data.access)
-                await axios.get('http://localhost:8000/user/me/', {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('auth')}`
-                    }
-                })
-                    .then((response) => {
-                        console.log(response.data)
-                    })
             }).catch(error => {
                     present('Username/password is wrong, please check it', 1500)
                 }
             )
-    }, [history, present, setUser])
+    }, [history, present])
 
     const register = useCallback(async (data) => {
         await axios.post('http://localhost:8080/user/register')
