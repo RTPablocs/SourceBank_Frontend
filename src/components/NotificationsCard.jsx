@@ -1,4 +1,4 @@
-import Notification from "../Notification";
+import Notification from "./Notification";
 
 export default function NotificationsCard () {
     return (
@@ -8,22 +8,17 @@ export default function NotificationsCard () {
                     Notifications
                 </p>
                 <ul className={"h-80 overflow-auto"}>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
-                    <Notification/>
+                    <Notification data={{message: 'New Transfer Alert', status: 1, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
                 </ul>
             </div>
         </div>

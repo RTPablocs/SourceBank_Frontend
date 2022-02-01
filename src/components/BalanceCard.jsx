@@ -1,7 +1,7 @@
 import Icon from "./Icon";
 import MovementDisplay from "./MovementDisplay";
 
-export default function BalanceCard({balance = 10000}) {
+export default function BalanceCard({balance}) {
     return (
         <div className="mb-4">
             <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
