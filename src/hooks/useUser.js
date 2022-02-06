@@ -3,23 +3,31 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useIonToast} from "@ionic/react";
 import Context from "../context/UserContext";
+import LoginService from "../services/loginService";
+import {storeToken, exterminateToken} from "../services/authService"
+import {getUserData} from "../services/userService";
 
-export default function useUser() {
+export default function useUser(callback, deps) {
     const history = useHistory()
     const [present] = useIonToast()
-    const {user} = useContext(Context)
+    const {user, setUser} = useContext(Context)
 
 
-    const login = useCallback(async (data) => {
-        await axios.post('http://localhost:8000/user/token/', data)
-            .then(async (response) => {
-                await present('Welcome Back!', 1500)
+    const login = useCallback((data) => {
+        console.log(data)
+        LoginService(data)
+            .then((response) => {
+                storeToken(response)
                 history.push('/dashboard')
-                localStorage.setItem('auth', response.data.access)
-            }).catch(error => {
-                    present('Username/password is wrong, please check it', 1500)
-                }
-            )
+                present('Welcome Back!', 1500)
+                getUserData()
+                    .then((data) => {
+                        console.log(data)
+                    })
+                })
+            .catch((error) => {
+                present('Sorry, Username/password is wrong', 1500)
+            })
     }, [history, present])
 
     const register = useCallback(async (data) => {
@@ -35,9 +43,8 @@ export default function useUser() {
     }, [present, history])
 
     const logout = useCallback(() => {
-        localStorage.removeItem('auth')
-        history.push('/login')
-    }, [history])
+        exterminateToken()
+    }, deps)
 
     return {
         login,
