@@ -2,33 +2,34 @@ import {useCallback, useContext} from "react";
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useIonToast} from "@ionic/react";
-import Context from "../context/UserContext";
 import LoginService from "../services/loginService";
-import {storeToken, exterminateToken} from "../services/authService"
+import {storeToken} from "../services/authService"
+import Context from "../context/UserContext";
 import {getUserData} from "../services/userService";
 
 export default function useUser(callback, deps) {
     const history = useHistory()
     const [present] = useIonToast()
-    const {user, setUser} = useContext(Context)
+    const {auth, setAuth} = useContext(Context)
+
 
 
     const login = useCallback((data) => {
-        console.log(data)
         LoginService(data)
             .then((response) => {
-                storeToken(response)
-                history.push('/dashboard')
-                present('Welcome Back!', 1500)
-                getUserData()
-                    .then((data) => {
-                        console.log(data)
-                    })
-                })
-            .catch((error) => {
-                present('Sorry, Username/password is wrong', 1500)
+                if (response.errors) {
+                    present('Sorry, Username/password is wrong', 1500)
+                } else {
+                    storeToken(response)
+                    setAuth(response.access)
+                    history.push('/dashboard')
+                    present('Welcome Back!', 1500)
+                }
             })
-    }, [history, present])
+            .catch((error) => {
+                console.log(error)
+            })
+    }, [history, present, setAuth])
 
     const register = useCallback(async (data) => {
         await axios.post('http://localhost:8080/user/register')
@@ -42,14 +43,9 @@ export default function useUser(callback, deps) {
 
     }, [present, history])
 
-    const logout = useCallback(() => {
-        exterminateToken()
-    }, deps)
 
     return {
         login,
-        register,
-        logout,
-        user
+        register
     }
 }

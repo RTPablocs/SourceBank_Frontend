@@ -14,17 +14,12 @@ export const validateToken = () => {
 }
 
 export const storeToken = (data) => {
-    localStorage.setItem('auth', data.token)
+    localStorage.setItem('auth', data.access)
     localStorage.setItem('auth_refresh', data.refresh)
 }
 
 export const exterminateToken = () => {
-    const refresh_token = localStorage.getItem('auth_refresh')
-    const http = HttpService()
-    http.post('user/refresh/', {'refresh':refresh_token})
-        .then(() => {
-            localStorage.removeItem('auth')
-            localStorage.removeItem('auth_refresh')
-    })
+    localStorage.removeItem('auth')
+    localStorage.removeItem('auth_refresh')
 }
 

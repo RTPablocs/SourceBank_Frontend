@@ -24,29 +24,33 @@ import './theme/tailwind.css'
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import {UserContextProvider} from "./context/UserContext";
 
 setupIonicReact();
 
 export default function App() {
     return (
-        <IonApp>
-            <IonReactRouter>
-                <IonRouterOutlet>
-                    <Route exact path="/">
-                        <Redirect to="/register"/>
-                    </Route>
-                    <Route exact path="/register">
-                        <Register/>
-                    </Route>
-                    <Route exact path="/login">
-                        <Login/>
-                    </Route>
-                    <Route exact path='/dashboard'>
-                        <Dashboard/>
-                    </Route>
-                </IonRouterOutlet>
-            </IonReactRouter>
-        </IonApp>
+        <UserContextProvider>
+            <IonApp>
+                <IonReactRouter>
+                    <IonRouterOutlet>
+                        <Route exact path="/">
+                            <Redirect to="/register"/>
+                        </Route>
+                        <Route exact path="/register">
+                            <Register/>
+                        </Route>
+                        <Route exact path="/login">
+                            <Login/>
+                        </Route>
+                        <Route exact path='/dashboard'>
+                            <Dashboard/>
+                        </Route>
+                    </IonRouterOutlet>
+                </IonReactRouter>
+            </IonApp>
+        </UserContextProvider>
+
     )
 }
 

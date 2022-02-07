@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import useUser from "../hooks/useUser";
 
 export default function SidebarDesktop() {
-    const {logout} = useUser()
     return (
         <div className="h-screen hidden lg:block my-4 ml-4 shadow-lg relative w-80">
             <div className="bg-white h-full rounded-2xl dark:bg-gray-700">
@@ -34,7 +33,7 @@ export default function SidebarDesktop() {
                             <Icon name='Settings'/>
                         </span><span className="mx-4 text-sm font-normal">Settings</span></a>
                         <Link className="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
-                           to={'/login'} onClick={logout()}><span className="text-left">
+                           to={'/login'}><span className="text-left">
                             <Icon name='LogOut'/>
                         </span><span className="mx-4 text-sm font-normal">Logout</span></Link>
                     </div>
