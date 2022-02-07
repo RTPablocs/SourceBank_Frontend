@@ -17,19 +17,19 @@ export default function useUser(callback, deps) {
     const login = useCallback((data) => {
         LoginService(data)
             .then((response) => {
-                if (response.errors) {
+                if (response === undefined) {
                     present('Sorry, Username/password is wrong', 1500)
                 } else {
                     storeToken(response)
                     setAuth(response.access)
-                    history.push('/dashboard')
+                    window.location.reload()
                     present('Welcome Back!', 1500)
                 }
             })
             .catch((error) => {
                 console.log(error)
             })
-    }, [history, present, setAuth])
+    }, [present, setAuth])
 
     const register = useCallback(async (data) => {
         await axios.post('http://localhost:8080/user/register')

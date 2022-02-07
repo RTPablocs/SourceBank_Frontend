@@ -1,7 +1,7 @@
 import Icon from "./Icon";
 import MovementDisplay from "./MovementDisplay";
 
-export default function BalanceCard({data}) {
+export default function BalanceCard({data, transfer, state}) {
     return (
         <div className="mb-4">
             <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
@@ -21,30 +21,33 @@ export default function BalanceCard({data}) {
                 </div>
                 <div className="block m-auto">
                     <div>
-                        {data === null ?
+                        {data === undefined || data === null ?
                             <p className="text-gray-700 dark:text-gray-100 text-4xl text-left font-bold my-4">
                                 0
                                 <span className="text-4xl"> € </span>
                             </p> :
-                            <p className="text-gray-700 dark:text-gray-100 text-4xl text-left font-bold my-4">
+                            <p className={`dark:text-gray-100 text-4xl text-left font-bold my-4 ${data.balance < 0 ? 'text-red-700' : 'text-gray-700'}`}>
                                 {data.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
                                 <span className="text-4xl"> € </span>
                             </p>}
                     </div>
                 </div>
                 <div className="flex items-center justify-between my-4 space-x-4">
-                        <span className="px-4 py-2 flex items-center text-xs rounded-md text-blue-500 font-semibold bg-blue-100">
+                        <span
+                            className="px-4 py-2 flex items-center text-xs rounded-md text-blue-500 font-semibold bg-blue-100">
                         RECENT MOVEMENTS
                     </span>
-                    <button className="py-1 px-4 w- flex justify-between items-center bg-blue-100 hover:bg-blue-200 focus:ring-blue-red-500 focus:ring-offset-blue-200 text-blue-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs">
-                        <Icon name={'ArrowLeftRight'} />
-                        TRANSFER
+                    <button
+                        onClick={() => state(!transfer)}
+                        className="py-2 px-4 flex justify-between items-center bg-blue-100 hover:bg-blue-200 focus:ring-blue-red-500 focus:ring-offset-blue-200 text-blue-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs">
+                        SEND
                     </button>
                 </div>
                 <div className="overflow-auto h-32">
                     <ul>
-                        {data === null ? <li>No movements available</li> : data.movements.map(movement =>
-                            <MovementDisplay data={movement} key={movement.movement_id}/>)}
+                        {data === undefined || data === null || data.movements.length === 0?
+                            <li className={"text-center"}>No movements available</li> : data.movements.map(movement =>
+                                <MovementDisplay data={movement} key={movement.movement_id}/>)}
                     </ul>
                 </div>
             </div>

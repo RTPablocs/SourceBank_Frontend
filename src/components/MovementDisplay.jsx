@@ -13,6 +13,10 @@ export default function MovementDisplay({data}) {
                 className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold ${data.status !== 1 ? data.status === 2 ? 'bg-gray-100 text-gray-500': 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'}`}>
                 {data.status !== 1 ? data.status === 2 ? 'PENDING' : 'SUCCESS' : 'FAILED'}
             </span>
+            <span
+                className={`px-2 py-1 flex items-center text-xs rounded-md font-semibold bg-gray-100 text-gray-500`}>
+                 { new Date(data.date).toLocaleDateString()}
+            </span>
         </li>
     )
 }
