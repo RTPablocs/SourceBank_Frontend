@@ -3,7 +3,7 @@ import Vault from "./Vault";
 
 export default function VaultsCard({data}){
     return (
-        <div className="mb-4">
+        <div className="mb-4 sm:ml-4 xl:mr-4">
             <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center">
