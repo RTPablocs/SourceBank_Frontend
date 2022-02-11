@@ -9,7 +9,7 @@ export default function NotificationsCard () {
                 </p>
                 <ul className={"h-80 overflow-auto"}>
                     <Notification data={{message: 'New Transfer Alert', status: 1, name: 'Transfer' }}/>
-                    <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
+                    <Notification data={{message: 'New Transfer Alert', status: 1, name: 'Transfer' }}/>
                     <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
                     <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>
                     <Notification data={{message: 'New Transfer Alert', status: 0, name: 'Transfer' }}/>

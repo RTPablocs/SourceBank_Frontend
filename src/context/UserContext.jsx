@@ -28,7 +28,7 @@ export function UserContextProvider({children}) {
         } else {
             setUser(null)
         }
-            },[auth, setAuth]
+            },[auth, setAuth, setUser]
 )
 
 

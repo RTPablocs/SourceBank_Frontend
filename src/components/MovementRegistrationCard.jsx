@@ -63,7 +63,7 @@ export default function MovementRegistration({transfer, state}) {
                         Cancel
                     </button>
                     <button
-                        onClick={() => {submit({'username': 'pablo', 'amount': 5, 'message': 'A'})}}
+                        onClick={() => {submit({'username': 'normal', 'amount': 5, 'message': 'A'})}}
                         className="py-1 px-4 w-full flex justify-between items-center bg-green-100 hover:bg-green-200 focus:ring-green-500 focus:ring-offset-green-200 text-green-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs">
                         <Icon name={'Check'}/>
                         Confirm

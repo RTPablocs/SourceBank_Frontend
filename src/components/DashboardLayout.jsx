@@ -27,15 +27,10 @@ export default function DashboardLayout() {
                                             <UserDataCard user={user}/>
                                             <BalanceCard data={user} transfer={isTransferOpen} state={setTransferOpen}/>
                                             {isTransferOpen ? <MovementRegistration transfer={isTransferOpen} state={setTransferOpen}/> : <></> }
-
-
                                         </div>
                                         <div className="w-full sm:w-1/2 xl:w-1/3">
                                             <NotificationsCard/>
                                             <VaultsCard/>
-                                        </div>
-                                        <div className="w-full sm:w-1/2 xl:w-1/3">
-                                            <CalendarCard/>
                                         </div>
                                     </div>
                                 </div>
