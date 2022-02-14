@@ -5,7 +5,7 @@ import {useIonToast} from "@ionic/react";
 import LoginService from "../services/loginService";
 import {storeToken} from "../services/authService"
 import Context from "../context/UserContext";
-import {getUserData} from "../services/userService";
+
 
 export default function useUser(callback, deps) {
     const history = useHistory()
