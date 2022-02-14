@@ -1,21 +1,53 @@
 import Icon from "./Icon";
+import {IonItem, IonItemOption, IonItemOptions, IonItemSliding} from "@ionic/react";
+import {useCallback, useState} from "react";
 
 export default function Notification({data}) {
+    const [state, setState] = useState(data.status)
     return (
-        <li className={`flex items-center my-6 space-x-2 ${data.status === 0? "text-gray-200": "text-blue-500"}`}>
-            <a href="#" className="block relative">
-                <Icon name={data.status === 1 ? "AlertCircle": "CheckCircle"}
-                     className="mx-auto object-cover rounded-full h-10 w-10 "/>
-            </a>
-            <div className="flex flex-col">
+        state === 1 ? <IonItemSliding>
+                <IonItemOptions side={'end'} className={'py-2'}>
+                    <IonItemOption color={'none'} onClick={() => {
+                        setState(prevState => prevState = 0)
+                    }} className={'bg-blue-200 text-blue-500 rounded font-semibold'}>Mark as
+                        read</IonItemOption>
+                </IonItemOptions>
+                <IonItem lines={"none"}
+                         className={`flex flex-row py-2 items-center space-x-2 text-blue-500`}>
+                    <div className="block relative">
+                        <Icon name={state === 1 ? "AlertCircle" : "CheckCircle"}
+                              className="mx-auto object-cover rounded-full h-10 w-10 "/>
+                    </div>
+                    <div className="flex flex-col">
                 <span
-                    className={`text-sm font-semibold dark:text-white ml-2 ${data.status === 0? "text-gray-200": "text-blue-500"}`}>
+                    className={`text-sm font-semibold dark:text-white ml-2 text-blue-500`}>
                     {data.name}
                 </span>
-                <span className={`text-sm dark:text-gray-300 ml-2 ${data.status === 0? "text-gray-200": "text-blue-500"}`}>
+                        <span
+                            className={`text-sm dark:text-gray-300 ml-2 text-blue-500`}>
                     {data.message}
                 </span>
-            </div>
-        </li>
+
+                    </div>
+                </IonItem>
+            </IonItemSliding> :
+            <IonItem lines={"none"}
+                     className={`flex flex-row py-2 items-center space-x-2 text-gray-200`}>
+                <div className="block relative">
+                    <Icon name={"CheckCircle"}
+                          className="mx-auto object-cover rounded-full h-10 w-10 "/>
+                </div>
+                <div className="flex flex-col">
+                <span
+                    className={`text-sm font-semibold dark:text-white ml-2 text-gray-200`}>
+                    {data.name}
+                </span>
+                    <span
+                        className={`text-sm dark:text-gray-300 ml-2 text-gray-200 `}>
+                    {data.message}
+                </span>
+
+                </div>
+            </IonItem>
     )
 }

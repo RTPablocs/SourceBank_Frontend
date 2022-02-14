@@ -1,5 +1,6 @@
 import Icon from "./Icon";
 import Vault from "./Vault";
+import {IonList} from "@ionic/react";
 
 export default function VaultsCard({data}){
     return (
@@ -16,8 +17,11 @@ export default function VaultsCard({data}){
                                                 </span>
                         </div>
                     </div>
+                    <button type={'button'} className={'py-2 px-4 font-semibold text-blue-500'}>New Vault</button>
                 </div>
-                <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 20 }}/>
+                <IonList>
+                    <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 20 }}/>
+                </IonList>
             </div>
         </div>
     )
