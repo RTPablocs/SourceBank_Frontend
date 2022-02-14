@@ -23,7 +23,7 @@ export default function VaultsCard({data}) {
                     </button>
                 </div>
                 <IonList>
-                    <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 20}}/>
+                    <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 200}}/>
                 </IonList>
             </div>
         </div>

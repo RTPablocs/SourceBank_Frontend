@@ -1,8 +1,14 @@
-import {IonItem, IonItemOption, IonItemOptions, IonItemSliding} from "@ionic/react";
+import {IonItem, IonItemOption, IonItemOptions, IonItemSliding, useIonModal} from "@ionic/react";
 import Icon from "./Icon";
 import VaultModal from "./VaultModal";
 
 export default function Vault({data}) {
+    const handleDismiss = () => dismiss()
+
+    const [present, dismiss] = useIonModal(VaultModal, {
+        data: data,
+        closeModal: handleDismiss,
+    })
     return (
         <IonItemSliding>
             <IonItemOptions side={'end'}> <IonItemOption
@@ -17,14 +23,14 @@ export default function Vault({data}) {
                 </IonItemOption>
             </IonItemOptions>
 
-            <IonItem lines={'none'} className={'flex flex-col w-full px-0'}>
+            <IonItem lines={'none'} className={'flex flex-col w-full px-0'} onClick={() => present()}>
                 <div className="w-full">
                     <div>
                         <div className={'flex flex-row justify-between items-center'}>
                             <span className={"text-xl block break-all"}>{data.name}</span>
                             <span
-                                className="px-2 py-1 flex w-40 items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
-                                        END DATE : 18 JUN 2023
+                                className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
+                                        18 JUN 2023
                                     </span>
                         </div>
 
@@ -45,7 +51,6 @@ export default function Vault({data}) {
                 </div>
 
             </IonItem>
-            <VaultModal trigger={'vault-trigger'}/>
         </IonItemSliding>
     )
 }
