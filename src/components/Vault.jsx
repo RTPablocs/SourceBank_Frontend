@@ -1,17 +1,18 @@
 import {IonItem, IonItemOption, IonItemOptions, IonItemSliding} from "@ionic/react";
 import Icon from "./Icon";
+import VaultModal from "./VaultModal";
 
 export default function Vault({data}) {
     return (
         <IonItemSliding>
             <IonItemOptions side={'end'}> <IonItemOption
-                className={'bg-gray-200 text-gray-500 font-semibold rounded-l'}>
+                className={'bg-gray-100 text-gray-500 font-semibold rounded-l'}>
                 <Icon name={'ArrowLeftRight'}/>
             </IonItemOption>
-                <IonItemOption className={'bg-blue-200 text-blue-500 font-semibold'}>
+                <IonItemOption className={'bg-blue-100 text-blue-500 font-semibold'} id={'vault-trigger'}>
                     <Icon name={'Edit'}/>
                 </IonItemOption>
-                <IonItemOption className={'bg-red-200 text-red-500 rounded-r font-semibold'}>
+                <IonItemOption className={'bg-red-100 text-red-500 rounded-r font-semibold'}>
                     <Icon name={'Trash'}/>
                 </IonItemOption>
             </IonItemOptions>
@@ -44,6 +45,7 @@ export default function Vault({data}) {
                 </div>
 
             </IonItem>
+            <VaultModal trigger={'vault-trigger'}/>
         </IonItemSliding>
     )
 }

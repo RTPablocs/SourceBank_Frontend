@@ -9,7 +9,7 @@ export default function Notification({data}) {
                 <IonItemOptions side={'end'} className={'py-2'}>
                     <IonItemOption color={'none'} onClick={() => {
                         setState(prevState => prevState = 0)
-                    }} className={'bg-blue-200 text-blue-500 rounded font-semibold'}>Mark as
+                    }} className={'bg-blue-100 text-blue-500 rounded font-semibold'}>Mark as
                         read</IonItemOption>
                 </IonItemOptions>
                 <IonItem lines={"none"}

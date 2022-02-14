@@ -2,7 +2,7 @@ import Icon from "./Icon";
 import Vault from "./Vault";
 import {IonList} from "@ionic/react";
 
-export default function VaultsCard({data}){
+export default function VaultsCard({data}) {
     return (
         <div className="mb-4 sm:ml-4 xl:mr-4">
             <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
@@ -17,10 +17,13 @@ export default function VaultsCard({data}){
                                                 </span>
                         </div>
                     </div>
-                    <button type={'button'} className={'py-2 px-4 font-semibold text-blue-500'}>New Vault</button>
+                    <button type={'button'}
+                            className={'py-2 px-4 flex justify-between items-center bg-blue-100 hover:bg-blue-200 focus:ring-blue-red-500 focus:ring-offset-blue-200 text-blue-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs'}>
+                        NEW VAULT
+                    </button>
                 </div>
                 <IonList>
-                    <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 20 }}/>
+                    <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 20}}/>
                 </IonList>
             </div>
         </div>
