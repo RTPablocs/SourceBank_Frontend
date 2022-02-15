@@ -5,13 +5,11 @@ const Context = React.createContext({});
 
 export function UserContextProvider({children}) {
     const [user, setUser] = useState(null);
-    const [auth, setAuth] = useState(() => {
-        localStorage.getItem('auth')
-    })
+    const [auth, setAuth] = useState(null)
 
     useEffect(() => {
-        setAuth(localStorage.getItem('auth'))
-        if (auth !== undefined) {
+        setAuth(prevState => localStorage.getItem('auth'))
+        if (auth !== null) {
             getUserData()
                 .then(data => {
                     data.movements = data.movements.sort((a,b)=> {

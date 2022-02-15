@@ -1,15 +1,11 @@
-/* TODO implement useIonModal as shown in the docs, remember that This is only appearance,
-     and must not contain nothing about the hook here
-*/
-
 import Icon from "./Icon";
 import {IonProgressBar} from "@ionic/react";
 
 export default function VaultModal({data, closeModal}) {
     const calculateVaultPercentage = () => (data.currentAmount * 100) / data.targetAmount
     return (
-        <div className="mb-4">
-            <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+        <div className={'xs:flex xs:h-screen xs:items-end sm:flex sm:h-screen sm:items-end md:items-center'}>
+            <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full xs:rounded-b-none sm:rounded-b-none md:rounded-2xl h-3/4">
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center">
                         <span className="rounded-xl relative p-2 bg-blue-100 text-blue-500">
@@ -42,8 +38,8 @@ export default function VaultModal({data, closeModal}) {
                                         YOU'VE SAVED {data.currentAmount} €
                                     </span>
                                 <span
-                                className="px-2 py-1 flex w-40 items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
-                                        END DATE : 18 JUN 2023
+                                className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
+                                        18 JUN 2023
                                     </span>
                             </div>
                             <div className="w-full h-4 mt-4">
