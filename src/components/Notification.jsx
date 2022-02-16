@@ -21,7 +21,7 @@ export default function Notification({data}) {
                     <div className="flex flex-col">
                 <span
                     className={`text-sm font-semibold dark:text-white ml-2 text-blue-500`}>
-                    {data.name}
+                    {data.title}
                 </span>
                         <span
                             className={`text-sm dark:text-gray-300 ml-2 text-blue-500`}>
@@ -40,7 +40,7 @@ export default function Notification({data}) {
                 <div className="flex flex-col">
                 <span
                     className={`text-sm font-semibold dark:text-white ml-2 text-gray-200`}>
-                    {data.name}
+                    {data.title}
                 </span>
                     <span
                         className={`text-sm dark:text-gray-300 ml-2 text-gray-200 `}>

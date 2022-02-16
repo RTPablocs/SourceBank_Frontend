@@ -4,7 +4,6 @@ import TopBarDesktop from "./TopBarDesktop";
 import BalanceCard from "./BalanceCard";
 import NotificationsCard from "./NotificationsCard";
 import VaultsCard from "./VaultsCard";
-import CalendarCard from "./CalendarCard";
 import Context from "../context/UserContext";
 import MovementRegistration from "./MovementRegistrationCard";
 import {useState} from "react";
@@ -29,7 +28,7 @@ export default function DashboardLayout() {
                                             {isTransferOpen ? <MovementRegistration transfer={isTransferOpen} state={setTransferOpen}/> : <></> }
                                         </div>
                                         <div className="w-full sm:w-1/2 xl:w-1/3">
-                                            <NotificationsCard/>
+                                            <NotificationsCard data={user}/>
                                             <VaultsCard/>
                                         </div>
                                     </div>
