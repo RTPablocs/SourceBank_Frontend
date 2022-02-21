@@ -1,4 +1,4 @@
-import {IonItem, IonItemOption, IonItemOptions, IonItemSliding, useIonModal} from "@ionic/react";
+import {IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonProgressBar, useIonModal} from "@ionic/react";
 import Icon from "./Icon";
 import VaultModal from "./VaultModal";
 
@@ -9,8 +9,9 @@ export default function Vault({data}) {
         data: data,
         closeModal: handleDismiss,
     })
+    const calculateVaultPercentage = () => (data.amount * 100) / data.target
     return (
-        <IonItemSliding>
+        <IonItemSliding className={'mb-4'}>
             <IonItemOptions side={'end'}> <IonItemOption
                 className={'bg-gray-100 text-gray-500 font-semibold rounded-l'}>
                 <Icon name={'ArrowLeftRight'}/>
@@ -37,16 +38,14 @@ export default function Vault({data}) {
                         <span className="text-sm inline-block text-gray-500 dark:text-gray-100">
                                                 Current Amount :
                                                 <span className="text-gray-700 dark:text-white font-bold">
-                                                    {data.currentAmount}
+                                                    {data.amount}
                                                 </span>
-                                                /{data.targetAmount}
+                                                /{data.target}
                                             </span>
                     </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full mt-2">
-                        <div
-                            className="w-1/12 h-full text-center text-xs text-white bg-blue-500 rounded-full">
-                        </div>
-                    </div>
+                    <IonProgressBar value={calculateVaultPercentage() / 100}
+                                    className={'w-full h-2 rounded-full'}>
+                    </IonProgressBar>
 
                 </div>
 

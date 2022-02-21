@@ -1,6 +1,7 @@
 import Icon from "./Icon";
 import Vault from "./Vault";
-import {IonList} from "@ionic/react";
+import {IonItem, IonList} from "@ionic/react";
+import {useEffect} from "react";
 
 export default function VaultsCard({data}) {
     return (
@@ -23,7 +24,7 @@ export default function VaultsCard({data}) {
                     </button>
                 </div>
                 <IonList>
-                    <Vault data={{name: "Weekend Savings", targetAmount: 2000, currentAmount: 200}}/>
+                    {data && data.vaults.length > 0  ? data.vaults.map((vault)=> <Vault data={vault} key={vault.id}/>): <p className={'text-center'}>No Vaults Available</p>}
                 </IonList>
             </div>
         </div>
