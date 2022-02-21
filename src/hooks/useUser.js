@@ -1,8 +1,8 @@
 import {useCallback, useContext} from "react";
-import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useIonToast} from "@ionic/react";
 import LoginService from "../services/loginService";
+import RegisterService from "../services/registerService";
 import {storeToken} from "../services/authService"
 import Context from "../context/UserContext";
 
@@ -22,7 +22,7 @@ export default function useUser(callback, deps) {
                 } else {
                     storeToken(response)
                     setAuth(response.access)
-                    window.location.reload()
+                    history.push('/dashboard')
                     present('Welcome Back!', 1500)
                 }
             })
@@ -31,16 +31,16 @@ export default function useUser(callback, deps) {
             })
     }, [present, setAuth])
 
-    const register = useCallback(async (data) => {
-        await axios.post('http://localhost:8080/user/register')
-            .then(() => {
-                present('User registered correctly!', 1500)
-                history.push('/login')
+    const register = useCallback( (data) => {
+        RegisterService(data)
+            .then((response) => {
+                if (response === undefined) {
+                    present('We ran into an issue, please try it again', 1500)
+                }else {
+                    present('User registered correctly!', 1500)
+                    history.push('/login')
+                }
             })
-            .catch(() => {
-                present('We ran into an issue, please try it again', 1500)
-            })
-
     }, [present, history])
 
 
