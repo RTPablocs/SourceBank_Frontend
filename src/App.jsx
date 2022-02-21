@@ -25,10 +25,18 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import {UserContextProvider} from "./context/UserContext";
+import {useEffect} from "react";
 
 setupIonicReact();
 
+
 export default function App() {
+    useEffect(() => {
+        window.addEventListener('beforeunload', () => {
+            prompt('You')
+            localStorage.clear()
+        })
+    }, [])
     return (
         <UserContextProvider>
             <IonApp>

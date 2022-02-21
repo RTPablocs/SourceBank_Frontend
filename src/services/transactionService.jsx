@@ -6,3 +6,10 @@ export const sendTransaction = (data) => {
         .then((data) => {return data})
         .catch((error) => {return error.response})
 }
+
+export const retrieveTransactions = (id) => {
+    const http = HttpService(true)
+    return http.get(`movements/vault/${id}`)
+        .then((data) => {return data})
+        .catch((error) => {return error.response})
+}

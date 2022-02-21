@@ -10,10 +10,10 @@ export default function NotificationsCard({data}) {
             <div className='shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full '>
                 <p className='flex justify-between font-bold text-md text-black dark:text-white'>
                     Notifications <IonBadge
-                    className={'bg-red-500 flex items-center px-2 py-2'}>4</IonBadge>
+                    className={'bg-red-500 flex items-center px-2 py-2'}>{data ? data.notifications.length : 0}</IonBadge>
                 </p>
                 <ul className={`h-80 overflow-auto`}>
-                    {data ?
+                    {data && data.notifications.length > 0 ?
                         data.notifications.map(notification =>
                             <Notification data={notification} key={notification.id}/>) :
                         <li className={"text-center"}>No Notifications available</li>}

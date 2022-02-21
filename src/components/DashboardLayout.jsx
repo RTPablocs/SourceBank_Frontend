@@ -29,7 +29,7 @@ export default function DashboardLayout() {
                                         </div>
                                         <div className="w-full sm:w-1/2 xl:w-1/3">
                                             <NotificationsCard data={user}/>
-                                            <VaultsCard/>
+                                            <VaultsCard data={user}/>
                                         </div>
                                     </div>
                                 </div>

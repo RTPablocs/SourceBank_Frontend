@@ -29,13 +29,13 @@ export default function UserDataCard({user}) {
                                 <p className="flex flex-col">
                                     Total Spent
                                     <span className="text-black dark:text-indigo-500 font-bold text-center">
-                            {user ? Math.abs(user.movements.filter(movement => movement.amount < 0).map(m => m.amount).reduce((a, b) => a + b)).toPrecision(4) : 0}
+                            {user ? Math.abs(user.movements.filter(movement => movement.amount < 0).map(m => m.amount).reduce((a, b) => a + b, 0)).toFixed(2) : 0} €
                         </span>
                                 </p>
                                 <p className="flex flex-col">
                                     Last Movement
                                     <span className="text-black dark:text-indigo-500 font-bold text-center">
-                            {user ? new Date(user.movements[0].date).toLocaleDateString() : 'Never'}
+                            {user > 0 ? new Date(user.movements[0].date).toLocaleDateString() : 'Never'}
                         </span>
                                 </p>
                             </div>
