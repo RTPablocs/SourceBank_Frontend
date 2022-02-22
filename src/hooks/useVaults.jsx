@@ -28,7 +28,7 @@ export default function useVaults(callback, deps) {
     const update = useCallback((data) => {
         updateVault(data)
             .then((response) => {
-                response.status === 200 ? present('Vault Created', 1500) : present('Something went wrong, please try again', 1500)
+                response.status === 200 ? present('Vault updated', 1500) : present('Something went wrong, please try again', 1500)
                 updateUserFromSocket()
             })
     }, [present, updateUserFromSocket])

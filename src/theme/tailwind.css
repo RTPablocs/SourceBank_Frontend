@@ -28,3 +28,7 @@ ion-progress-bar {
     --background: #e5e7eb;
     --progress-bar-background: #2563eb;
 }
+
+ion-content {
+    --ion-background-color: white;
+}

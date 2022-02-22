@@ -1,13 +1,31 @@
 import Icon from "./Icon";
-import MovementDisplay from "./MovementDisplay";
 import useMovements from "../hooks/useMovements"
 import {useForm} from "react-hook-form";
-import {useIonToast} from "@ionic/react";
+import {useIonModal, useIonToast} from "@ionic/react";
+import QRModal from "./QRModal";
+import {BarcodeScanner} from "@awesome-cordova-plugins/barcode-scanner";
+import {useState} from "react";
 
 export default function MovementRegistration({transfer, state}) {
     const {submit} = useMovements()
+    const [QrData, setQr] = useState(false)
+    const [modalProps, setModalProps] = useState({m:0})
     const {register, handleSubmit} = useForm()
     const [present] = useIonToast()
+
+    const openScanner = async () => {
+        const data = await BarcodeScanner.scan({
+            prompt: ''
+        });
+        submit(JSON.parse(data.text))
+    };
+
+    const [modal, dismiss] = useIonModal(QRModal, {
+        data: modalProps,
+        closeModal: () => dismiss()
+    })
+
+
     return (
         <div className="mb-4">
             <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
@@ -27,7 +45,14 @@ export default function MovementRegistration({transfer, state}) {
                 </div>
                 <div className="block m-auto">
                     <div>
-                        <form onSubmit={handleSubmit(submit, () => present('Invalid data, please re-check', 1000))}>
+                        <form onSubmit={handleSubmit((data) => {
+                            if (QrData) {
+                                setModalProps(data)
+                                modal()
+                            } else {
+                                submit(data)
+                            }
+                        }, () => present('Invalid data, please re-check', 1000))}>
                             <div className="flex relative mb-4">
                             <span
                                 className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -59,7 +84,7 @@ export default function MovementRegistration({transfer, state}) {
                                            name="amount" placeholder="Message" {...register("message")}/>
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between my-4 space-x-4">
+                            <div className="grid grid-cols-2 gap-2">
                                 <button onClick={() => {
                                     state(!transfer)
                                 }}
@@ -69,9 +94,24 @@ export default function MovementRegistration({transfer, state}) {
                                 </button>
                                 <button
                                     type={'submit'}
+                                    onClick={() => setQr(false)}
                                     className="py-1 px-4 w-full flex justify-between items-center bg-green-100 hover:bg-green-200 focus:ring-green-500 focus:ring-offset-green-200 text-green-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs">
                                     <Icon name={'Check'}/>
                                     Confirm
+                                </button>
+                                <button
+                                    type={'button'}
+                                    onClick={openScanner}
+                                    className="py-1 px-4 w-full flex justify-between items-center bg-blue-100 hover:bg-blue-200 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs">
+                                    <Icon name={'ScanLine'}/>
+                                    Scan QR
+                                </button>
+                                <button
+                                    type={'submit'}
+                                    onClick={() => setQr(true)}
+                                    className="py-1 px-4 w-full flex justify-between items-center bg-gray-100 hover:bg-gray-200 focus:ring-gray-500 focus:ring-offset-gray-200 text-gray-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg text-xs">
+                                    <Icon name={'QrCode'}/>
+                                    Generate QR
                                 </button>
                             </div>
                         </form>

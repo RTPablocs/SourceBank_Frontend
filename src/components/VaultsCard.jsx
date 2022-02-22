@@ -13,14 +13,14 @@ export default function VaultsCard({data}) {
 
     return (
         <div className="mb-4 sm:ml-4 xl:mr-4">
-            <div className="shadow-lg rounded-2xl p-4 bg-white dark:bg-gray-700 w-full">
+            <div className="shadow-lg rounded-2xl p-4 bg-white w-full">
                 <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center">
                                             <span className="rounded-xl relative p-2 bg-blue-100 text-blue-500">
                                                 <Icon name={"Lock"}/>
                                             </span>
                         <div className="flex flex-col">
-                                                <span className="font-bold text-md text-black dark:text-white ml-2">
+                                                <span className="font-bold text-md text-black ml-2">
                                                     Vaults
                                                 </span>
                         </div>

@@ -5,24 +5,21 @@ import useWebsocket from "../hooks/useWebsocket";
 const Context = React.createContext({});
 
 
-
 export function UserContextProvider({children}) {
     const [user, setUser] = useState(null);
     const [auth, setAuth] = useState(null)
-    const {listenFromSocket, ehloToSocket} = useWebsocket()
+    const {listenFromSocket, updateUserFromSocket} = useWebsocket()
 
 
     useEffect(() => {
-        setAuth(prevState => localStorage.getItem('auth'))
-        if (auth !== null) {
-            ehloToSocket()
-        } else {
-            setUser(null)
-        }
+            setAuth(prevState => localStorage.getItem('auth'))
+            if (auth !== null) {
+                setUser(null)
+            }
+            listenFromSocket(setUser)
+        }, [auth, setAuth]
+    )
 
-            },[auth, setAuth]
-)
-    listenFromSocket(setUser)
 
     return <Context.Provider value={{
         user,

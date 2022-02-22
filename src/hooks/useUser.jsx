@@ -23,6 +23,7 @@ export default function useUser(callback, deps) {
                     storeToken(response)
                     setAuth(response.access)
                     history.push('/dashboard')
+                    window.location.reload()
                     present('Welcome Back!', 1500)
                 }
             })
