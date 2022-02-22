@@ -16,7 +16,7 @@ export const deleteVault = (vault_id) => {
 
 export const updateVault = (data) => {
     const http = HttpService(true)
-    return http.post('vaults/update/', data)
+    return http.patch('vaults/update/', data)
         .then((data) => {return data})
         .catch((error) => {return error.response})
 }

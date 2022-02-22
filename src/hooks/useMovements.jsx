@@ -1,12 +1,12 @@
 import {useCallback} from "react"
 import {useIonToast} from "@ionic/react"
-import {sendTransaction, retrieveTransactions} from "../services/transactionService";
+import {sendTransaction, retrieveTransactions, sendVaultTransaction} from "../services/transactionService";
 import useWebsocket from "./useWebsocket";
 
 
 export default function useMovements(callback, deps) {
     const [present] = useIonToast()
-    const {updateMultipleUserFromSocket} = useWebsocket()
+    const {updateMultipleUserFromSocket, updateUserFromSocket} = useWebsocket()
 
 
     const submit = useCallback((data) => {
@@ -17,11 +17,20 @@ export default function useMovements(callback, deps) {
             })
     }, [])
 
+    const vaultSubmit = useCallback((data) => {
+        sendVaultTransaction(data)
+            .then((response) => {
+                response.status === 404 ? present('User not found', 1500) : response.status === 200 ? present('Money send correctly', 1500) : present('Something went wrong, please try again', 1500)
+                updateUserFromSocket()
+            })
+    }, [])
+
     const retrieve = useCallback((id) => {
         return retrieveTransactions(id)
     }, [])
     return {
         submit,
-        retrieve
+        retrieve,
+        vaultSubmit
     }
 }

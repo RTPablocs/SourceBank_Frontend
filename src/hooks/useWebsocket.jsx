@@ -1,11 +1,32 @@
 import WebSocketService from "../services/websocketService"
+import {useEffect, useRef} from "react";
 
 export default function useWebsocket() {
+    const ws = useRef(null)
 
-    const ws = WebSocketService()
+    useEffect(() => {
+
+        ws.current = WebSocketService()
+        ws.current.onopen = () => {
+            ws.current.send(JSON.stringify({'message': 'hello'}))
+            console.log('Socket Open')
+        }
+        ws.current.onclose = () => {
+            console.log('Socket Close')
+        }
+        const wsCurrent = ws.current
+        return () => {
+            wsCurrent.close()
+        }
+    }, [])
+
+
     const sortSocketData = (data, setFunction) => {
         let json_data = JSON.parse(data.data)
         json_data.data.movements = json_data.data.movements.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date)
+        })
+        json_data.data.notifications = json_data.data.notifications.sort((a, b) => {
             return new Date(b.date) - new Date(a.date)
         })
         json_data.data.balance = json_data.data.balance.toFixed(2)
@@ -18,32 +39,22 @@ export default function useWebsocket() {
     }
 
     const updateMultipleUserFromSocket = (user) => {
-        ws.send(user)
+        ws.current.send(user)
     }
     const updateUserFromSocket = () => {
-        ws.send(JSON.stringify({'message': 'hello'}))
+        ws.current.send(JSON.stringify({'message': 'hello'}))
 
     }
     const listenFromSocket = (setFunction) => {
-        ws.onmessage = ev => {
+        ws.current.onmessage = ev => {
             sortSocketData(ev, setFunction)
         }
     }
 
-    const ehloToSocket = () => {
-        ws.onopen = () => {
-            ws.send(JSON.stringify({'message': 'hello'}))
-        }
-    }
-    const closeSocketConnection = () => {
-        ws.close()
-    }
 
     return {
         updateUserFromSocket,
         updateMultipleUserFromSocket,
         listenFromSocket,
-        ehloToSocket,
-        closeSocketConnection
     }
 }

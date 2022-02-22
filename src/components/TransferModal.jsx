@@ -2,11 +2,12 @@ import Icon from "./Icon";
 import {useForm} from "react-hook-form";
 import {IonDatetime, useIonToast} from "@ionic/react";
 import useVaults from "../hooks/useVaults";
+import useMovements from "../hooks/useMovements";
 
-export default function VaultCreatorModal({data, closeModal}) {
+export default function TransferModal({data, closeModal}) {
     const [present] = useIonToast()
     const {register, handleSubmit} = useForm()
-    const {submit} = useVaults()
+    const {vaultSubmit} = useMovements()
     return (
         <div className={'xs:flex xs:h-screen xs:items-end sm:flex sm:h-screen sm:items-end md:items-center'}>
             <div
@@ -18,7 +19,7 @@ export default function VaultCreatorModal({data, closeModal}) {
                         </span>
                         <div className="flex flex-row w-full ">
                             <span className="font-bold text-md text-black dark:text-white ml-2">
-                                Creating Vault...
+                                Transferring to {data.name}
                             </span>
                         </div>
                     </div>
@@ -32,46 +33,26 @@ export default function VaultCreatorModal({data, closeModal}) {
                 </div>
                 <div className={'overflow-y-auto h-91'}>
                     <form
-                        onSubmit={handleSubmit((data) => {
-                            console.log(data)
-                            submit(data)
+                        onSubmit={handleSubmit((formData) => {
+                            formData.vault = data.id
+                            console.log(formData)
+                            vaultSubmit(formData)
                             closeModal()
                         }, () => present('Invalid data, please re-check', 1000))}
-                        className={'xs:grid-cols-1 xs:flex-col grid sm:grid-cols-2 sm:gap-4 w-full my-2'}>
+                        className={' w-full my-2'}>
                         <div>
-                            <div className="flex relative mb-4">
-                            <span
-                                className="rounded-l-md inline-flex w-auto items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                                <Icon name={"Type"}/>
-                            </span>
-                                <input type="text" id="title_field"
-                                       className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                       name="title"
-                                       placeholder="Vault Name" {...register("name", {required: true})}/>
-                            </div>
-                            <div className="flex relative mb-4">
-                            <span
-                                className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                                <Icon name={"Type"}/>
-                            </span>
-                                <input type="text" id="title_field"
-                                       className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                       name="title"
-                                       placeholder="Vault description" {...register("desc", {required: true})}/>
-                            </div>
-                            <div className="flex relative mb-4">
+                            <div className="flex relative w-full mb-4">
                         <span
                             className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-                            <Icon name={"Flag"}/>
+                            <Icon name={"Euro"}/>
                         </span>
                                 <input type="number" id="amount_field"
                                        className=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                       name="target" placeholder="Target"
-                                       min={0} {...register("target", {required: true})}/>
+                                       name="target" placeholder="Amount"
+                                       {...register("amount", {required: true})}/>
                             </div>
 
                         </div>
-                        <IonDatetime {...register('date')}/>
                         <button
                             type={'submit'}
                             className=" my-2 py-1 px-4 w-full flex justify-between items-center bg-green-100 hover:bg-green-200 focus:ring-green-500 focus:ring-offset-green-200 text-green-500 transition ease-in duration-200 text-center font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg text-xs sm:col-span-2">
