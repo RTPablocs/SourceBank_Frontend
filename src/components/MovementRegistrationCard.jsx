@@ -76,7 +76,6 @@ export default function MovementRegistration({transfer, state}) {
                             </div>
                         </form>
 
-
                     </div>
                 </div>
 

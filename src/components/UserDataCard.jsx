@@ -35,7 +35,7 @@ export default function UserDataCard({user}) {
                                 <p className="flex flex-col">
                                     Last Movement
                                     <span className="text-black dark:text-indigo-500 font-bold text-center">
-                            {user > 0 ? new Date(user.movements[0].date).toLocaleDateString() : 'Never'}
+                            {user ? new Date(user.movements[0].date).toLocaleDateString() : 'Never'}
                         </span>
                                 </p>
                             </div>

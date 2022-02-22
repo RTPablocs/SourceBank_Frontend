@@ -51,10 +51,11 @@ export default function VaultModal({data, closeModal}) {
                                 className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-green-500 bg-green-100 font-semibold">
                                         YOU'VE SAVED {data.amount} €
                                     </span>
-                                <span
-                                className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
-                                        18 JUN 2023
-                                    </span>
+                                {data && data.date !== null ?
+                                    <span
+                                        className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
+                                        {new Date(data.date).toLocaleDateString()}
+                                    </span>: <></>}
                             </div>
                             <div className="w-full h-4 mt-4">
                                 <IonProgressBar value={calculateVaultPercentage() / 100}
@@ -72,7 +73,7 @@ export default function VaultModal({data, closeModal}) {
                     </span>
                 </div>
                 <div className="overflow-auto h-44 xs:h-96">
-                    {movements ? movements.map(m => <MovementDisplay data={m} key={m.movement_id}/>): <p className={'text-center'}>No Movements available</p>}
+                    {movements && movements.length > 0 ? movements.map(m => <MovementDisplay data={m} key={m.movement_id}/>): <p className={'text-center'}>No Movements available</p>}
                 </div>
             </div>
         </div>

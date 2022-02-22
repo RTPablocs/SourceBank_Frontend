@@ -1,10 +1,11 @@
 import {IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonProgressBar, useIonModal} from "@ionic/react";
 import Icon from "./Icon";
 import VaultModal from "./VaultModal";
+import useVaults from "../hooks/useVaults";
 
 export default function Vault({data}) {
     const handleDismiss = () => dismiss()
-
+    const {del} = useVaults()
     const [present, dismiss] = useIonModal(VaultModal, {
         data: data,
         closeModal: handleDismiss,
@@ -12,14 +13,15 @@ export default function Vault({data}) {
     const calculateVaultPercentage = () => (data.amount * 100) / data.target
     return (
         <IonItemSliding className={'mb-4'}>
-            <IonItemOptions side={'end'}> <IonItemOption
-                className={'bg-gray-100 text-gray-500 font-semibold rounded-l'}>
+            <IonItemOptions side={'end'}>
+                <IonItemOption
+                    className={'bg-gray-100 text-gray-500 font-semibold rounded-l'}>
                 <Icon name={'ArrowLeftRight'}/>
             </IonItemOption>
                 <IonItemOption className={'bg-blue-100 text-blue-500 font-semibold'} id={'vault-trigger'}>
                     <Icon name={'Edit'}/>
                 </IonItemOption>
-                <IonItemOption className={'bg-red-100 text-red-500 rounded-r font-semibold'}>
+                <IonItemOption onClick={() => del(data.id)} className={'bg-red-100 text-red-500 rounded-r font-semibold'}>
                     <Icon name={'Trash'}/>
                 </IonItemOption>
             </IonItemOptions>
@@ -29,10 +31,11 @@ export default function Vault({data}) {
                     <div>
                         <div className={'flex flex-row justify-between items-center'}>
                             <span className={"text-xl block break-all"}>{data.name}</span>
-                            <span
-                                className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
-                                        18 JUN 2023
-                                    </span>
+                            {data && data.date !== null ?
+                                <span
+                                    className="px-2 py-1 flex items-center text-xs rounded-md font-semibold text-gray-500 bg-gray-100">
+                                        {new Date(data.date).toLocaleDateString()}
+                                    </span>: <></>}
                         </div>
 
                         <span className="text-sm inline-block text-gray-500 dark:text-gray-100">

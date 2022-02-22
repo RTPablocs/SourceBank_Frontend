@@ -16,6 +16,9 @@ module.exports = {
         extend: {
             backgroundImage: (theme) => ({
             }),
+            spacing: {
+                '91': '91%'
+            }
         },
     },
     variants: {

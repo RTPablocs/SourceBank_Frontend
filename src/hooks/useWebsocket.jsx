@@ -1,47 +1,49 @@
-import Context from "../context/UserContext";
-import {useContext} from "react";
+import WebSocketService from "../services/websocketService"
 
 export default function useWebsocket() {
-    const {auth, user, setUser} = useContext(Context)
-    const ws = new WebSocket(`ws://localhost:8000/user/me/?token=${auth}`)
 
-    const updateUserFromSocket = (user) => {
-        console.log(user)
+    const ws = WebSocketService()
+    const sortSocketData = (data, setFunction) => {
+        let json_data = JSON.parse(data.data)
+        json_data.data.movements = json_data.data.movements.sort((a, b) => {
+            return new Date(b.date) - new Date(a.date)
+        })
+        json_data.data.balance = json_data.data.balance.toFixed(2)
+        json_data.data.movements.forEach(movement => {
+            if (movement.sender_id === json_data.data.id) {
+                movement.amount = -movement.amount
+            }
+        })
+        setFunction(json_data.data)
+    }
+
+    const updateMultipleUserFromSocket = (user) => {
         ws.send(user)
-        ws.onmessage = ev =>{
-            let json_data = JSON.parse(ev.data)
-            console.log(json_data.data)
-            json_data.data.movements = json_data.data.movements.sort((a,b)=> {
-                return new Date(b.date) - new Date(a.date)
-            })
-            json_data.data.balance = json_data.data.balance.toFixed(2)
-            json_data.data.movements.forEach(movement => {
-                if (movement.sender_id === json_data.data.id){
-                    movement.amount = -movement.amount
-                }
-            })
+    }
+    const updateUserFromSocket = () => {
+        ws.send(JSON.stringify({'message': 'hello'}))
 
-            setUser(json_data.data)
+    }
+    const listenFromSocket = (setFunction) => {
+        ws.onmessage = ev => {
+            sortSocketData(ev, setFunction)
         }
     }
-    const listenFromSocket = () => {
-        ws.onmessage = ev => {
-            let json_data = JSON.parse(ev.data)
-            json_data.data.movements = json_data.data.movements.sort((a,b)=> {
-                return new Date(b.date) - new Date(a.date)
-            })
-            json_data.data.balance = json_data.data.balance.toFixed(2)
-            json_data.data.movements.forEach(movement => {
-                if (movement.sender_id === json_data.data.id){
-                    movement.amount = -movement.amount
-                }
-            })
-         return json_data
+
+    const ehloToSocket = () => {
+        ws.onopen = () => {
+            ws.send(JSON.stringify({'message': 'hello'}))
         }
+    }
+    const closeSocketConnection = () => {
+        ws.close()
     }
 
     return {
         updateUserFromSocket,
-        listenFromSocket
+        updateMultipleUserFromSocket,
+        listenFromSocket,
+        ehloToSocket,
+        closeSocketConnection
     }
 }
