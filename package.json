@@ -84,7 +84,7 @@
     "@capacitor/cli": "3.3.4",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
-    "eslint": "^8.7.0",
+    "eslint": "^8.15.0",
     "mini-css-extract-plugin": "^2.5.2"
   },
   "description": "An Ionic project"
