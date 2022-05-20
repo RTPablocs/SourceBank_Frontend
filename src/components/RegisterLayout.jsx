@@ -4,14 +4,18 @@ import {useForm, Controller} from "react-hook-form";
 import {Link} from "react-router-dom"
 import {useIonToast} from "@ionic/react";
 import useUser from "../hooks/useUser";
+import Avatar, {genConfig} from "react-nice-avatar";
+import {useState} from "react";
 
 export default function RegisterLayout() {
     const {register} = useUser()
     const [present] = useIonToast()
-
+    const [conf, setConf] = useState(genConfig())
 
     const {handleSubmit, control} = useForm()
     const onSubmit = handleSubmit(async (data) => {
+        data.photo = JSON.stringify(conf)
+        console.log(data)
         await register(data)
     }, async () => {
         await present('Cannot complete registration, fields missing or incorrect', 1500)
@@ -28,9 +32,20 @@ export default function RegisterLayout() {
                     Sign in
                 </Link>
                 </span>
-                <div className="p-6 mt-8">
+                <div className="p-6 mt-2">
                     <form onSubmit={onSubmit}>
                         <div className="flex flex-col mb-2">
+                            <div className={'flex justify-center my-3 flex-col items-center'}>
+                                <Avatar className="w-28 h-28 mb-3 rounded-lg" {...conf}/>
+                                <button type="button"
+                                        onClick={() => {
+                                            setConf(genConfig())
+                                        }}
+                                        className="py-2 px-4 w-28 bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
+                                >
+                                    Random
+                                </button>
+                            </div>
                             <Controller control={control} defaultValue="" name='username' rules={{required: true}}
                                         render={({field}) => <InputIcon icon='User' placeholder='Username'
                                                                         type='text' {...field}/>}/>

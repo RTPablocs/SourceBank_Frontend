@@ -8,7 +8,8 @@ export default function UserDataCard({user}) {
 
             <div className="shadow-lg rounded-2xl w-full p-4 bg-white dark:bg-gray-800">
                 <div className="flex flex-row items-start gap-4">
-                    <Avatar className="w-28 h-28 rounded-lg" {...conf}/>
+                    {user ? <Avatar className="w-28 h-28 rounded-lg" {...JSON.parse(user.photo)}/> : <></>}
+
                     <div className="h-28 w-full flex flex-col justify-between">
                         <div>
                             <p className="text-gray-800 dark:text-white text-xl font-medium">
